@@ -13,7 +13,7 @@ export class JogadoresController {
   }
 
   @Get()
-  async consultarJogadores(
+  async consultarJogadores( 
     @Query('email') email: string,
   ): Promise<Jogador[] | Jogador> {
     if (email) {
