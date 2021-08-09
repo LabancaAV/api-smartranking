@@ -17,13 +17,16 @@ export class JogadoresService {
 
   async criarAtualizarJogador(criaJogadorDto: CriarJogadorDto): Promise<void> {
     const { email } = criaJogadorDto;
-
-    const jogadorEncontrado = await this.jogadorRepository.findOne(email);
-
+    const jogadorEncontrado = await this.jogadorRepository.findOne({
+      where: {
+        email: email,
+      },
+    });
+    console.log(jogadorEncontrado);
     if (jogadorEncontrado) {
       await this.atualizar(jogadorEncontrado, criaJogadorDto);
     } else {
-      await this.criar(criaJogadorDto);
+      this.criar(criaJogadorDto);
     }
   }
 
@@ -32,7 +35,11 @@ export class JogadoresService {
   }
 
   async consultarJogadoresPeloEmail(email: string): Promise<Jogador> {
-    const jogadorEncontrado = await this.jogadorRepository.findOne(email);
+    const jogadorEncontrado = await this.jogadorRepository.findOne({
+      where: {
+        email: email,
+      },
+    });
     if (!jogadorEncontrado) {
       throw new NotFoundException(`Jogador com e-mail ${email} não encontrado`);
     } else {
@@ -57,6 +64,7 @@ export class JogadoresService {
       urlFotoJogador: 'www.google.com.br/foto123.jpg',
     };
     this.logger.log(`criaJogadorDto: ${JSON.stringify(jogador)}`);
+
     this.jogadorRepository.save(jogador);
   }
 
@@ -64,7 +72,6 @@ export class JogadoresService {
     jogadorEncontrado: JogadorEntity,
     criarJogadorDto: CriarJogadorDto,
   ): Promise<void> {
-    const { nome } = criarJogadorDto;
-    jogadorEncontrado.nome = nome;
+    this.jogadorRepository.update(jogadorEncontrado._id, criarJogadorDto);
   }
 }

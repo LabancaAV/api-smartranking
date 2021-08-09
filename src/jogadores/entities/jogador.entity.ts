@@ -2,24 +2,24 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('jogadores')
 export class JogadorEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   _id: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   telefoneCelular: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   email: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   nome: string;
 
-  @Column()
+  @Column({ type: 'varchar' })
   ranking: string;
 
-  @Column()
+  @Column({ type: 'integer' })
   posicaoRanking: number;
 
-  @Column()
+  @Column({ type: 'varchar' })
   urlFotoJogador: string;
 }
