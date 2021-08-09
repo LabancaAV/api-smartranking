@@ -48,7 +48,11 @@ export class JogadoresService {
   }
 
   async deletarJogador(email: string): Promise<void> {
-    const jogadorEncontrado = await this.jogadorRepository.findOne(email);
+    const jogadorEncontrado = await this.jogadorRepository.findOne({
+      where: {
+        email: email,
+      },
+    });
     this.jogadorRepository.delete(jogadorEncontrado);
   }
 
