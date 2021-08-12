@@ -5,5 +5,5 @@ export class AtualizarJogadorDto {
   readonly telefoneCelular: string;
 
   @IsNotEmpty()
-  readonly nome: string;
+  readonly nome: string; 
 }
