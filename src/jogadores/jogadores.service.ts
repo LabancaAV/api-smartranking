@@ -15,7 +15,7 @@ export class JogadoresService {
 
   private readonly logger = new Logger(JogadoresService.name);
 
-  async criarJogador(criaJogadorDto: CriarJogadorDto): Promise<void> {
+  async criarJogador(criaJogadorDto: CriarJogadorDto): Promise<Jogador> {
     const { email } = criaJogadorDto;
     const jogadorEncontrado = await this.jogadorRepository.findOne({
       where: {
@@ -40,7 +40,7 @@ export class JogadoresService {
 
     this.logger.log(`criaJogadorDto: ${JSON.stringify(jogador)}`);
 
-    this.jogadorRepository.save(jogador);
+    return this.jogadorRepository.save(jogador);
     
   }
 

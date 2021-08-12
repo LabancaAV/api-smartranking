@@ -21,8 +21,9 @@ export class JogadoresController {
 
   @Post()
   @UsePipes(ValidationPipe)
-  async criarJogador(@Body() criarJogadorDto: CriarJogadorDto) {
-    await this.jogadoresService.criarJogador(criarJogadorDto);
+  async criarJogador(
+    @Body() criarJogadorDto: CriarJogadorDto): Promise<Jogador> {
+    return await this.jogadoresService.criarJogador(criarJogadorDto);
   }
 
   @Put('/:_id')
