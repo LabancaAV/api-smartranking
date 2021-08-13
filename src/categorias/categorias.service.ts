@@ -7,30 +7,26 @@ import { Categoria } from './interfaces/categorias.interface';
 
 @Injectable()
 export class CategoriasService {
-    constructor(
-        @InjectRepository(CategoriaEntity)
-        private readonly categoriaRepository: Repository<Categoria>
-    ){ }
+  constructor(
+    @InjectRepository(CategoriaEntity)
+    private readonly categoriaRepository: Repository<Categoria>,
+  ) {}
 
-    async criarCategoria(criarCategoriaDto: CriarCategoriaDto): Promise<Categoria>{
-        
-        const { categoria } = criarCategoriaDto;
+  async criarCategoria(
+    criarCategoriaDto: CriarCategoriaDto,
+  ): Promise<Categoria> {
+    const { categoria } = criarCategoriaDto;
 
-        const categoriaEncontrada = await this.categoriaRepository.findOne({categoria});
+    const categoriaEncontrada = await this.categoriaRepository.findOne({
+      categoria,
+    });
 
-        if(categoriaEncontrada){
-            throw new BadRequestException(`Categoria ${categoria} já cadastrada`);
-        }
-
-        console.log(categoriaEncontrada);
-
-        return await this.categoriaRepository.save(categoriaEncontrada);
-        
+    if (categoriaEncontrada) {
+      throw new BadRequestException(`Categoria ${categoria} já cadastrada`);
     }
 
-    buscarTodasCategorias(): Promise<Categoria[]>{
-        return this.categoriaRepository.find({
-            relations: ['jogadores']
-        })
-    }
+    console.log(categoriaEncontrada);
+
+    return await this.categoriaRepository.save(categoriaEncontrada);
+  }
 }

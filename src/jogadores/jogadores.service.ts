@@ -1,4 +1,9 @@
-import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  Logger,
+  NotFoundException,
+} from '@nestjs/common';
 import { CriarJogadorDto } from './dtos/criar-jogador.dto';
 import { Jogador } from './interfaces/jogador.interface';
 import { v4 as uuid } from 'uuid';
@@ -12,7 +17,7 @@ export class JogadoresService {
   constructor(
     @InjectRepository(JogadorEntity)
     private readonly jogadorRepository: Repository<Jogador>,
-  ) {  }
+  ) {}
 
   private readonly logger = new Logger(JogadoresService.name);
 
@@ -25,8 +30,10 @@ export class JogadoresService {
     });
     console.log(jogadorEncontrado);
     if (jogadorEncontrado) {
-      throw new BadRequestException(`Jogador com e-mail ${email} já cadastrado`)
-    } 
+      throw new BadRequestException(
+        `Jogador com e-mail ${email} já cadastrado`,
+      );
+    }
 
     const { nome, telefoneCelular } = criarJogadorDto;
     const jogador: Jogador = {
@@ -42,18 +49,19 @@ export class JogadoresService {
     this.logger.log(`criaJogadorDto: ${JSON.stringify(jogador)}`);
 
     return this.jogadorRepository.save(jogador);
-    
   }
 
-  async atualizarJogador( _id: string, atualizarJogadorDto: AtualizarJogadorDto): Promise<void> {
+  async atualizarJogador(
+    _id: string,
+    atualizarJogadorDto: AtualizarJogadorDto,
+  ): Promise<void> {
     const jogadorEncontrado = await this.jogadorRepository.findOne(_id);
 
-    if(!jogadorEncontrado){
+    if (!jogadorEncontrado) {
       throw new NotFoundException(`Jogador com ${_id} não encontrado`);
     }
- 
-    this.jogadorRepository.update(_id, atualizarJogadorDto);
 
+    this.jogadorRepository.update(_id, atualizarJogadorDto);
   }
 
   async consultarTodosJogadores(): Promise<Jogador[]> {
@@ -76,5 +84,4 @@ export class JogadoresService {
     }
     this.jogadorRepository.delete(jogadorEncontrado);
   }
-
 }
