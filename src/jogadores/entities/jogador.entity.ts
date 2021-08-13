@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { CategoriaEntity } from 'src/categorias/entities/categorias.entity';
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('jogadores')
 export class JogadorEntity {
@@ -22,4 +23,8 @@ export class JogadorEntity {
 
   @Column({ type: 'varchar' })
   urlFotoJogador: string;
+
+  @OneToMany(type => CategoriaEntity, (categoria) => categoria.categoria)
+  categoria: CategoriaEntity;
+
 }
