@@ -1,30 +1,29 @@
 import { JogadorEntity } from 'src/jogadores/entities/jogador.entity';
 import {
-  Column,
-  Entity,
-  JoinColumn,
-  JoinTable,
-  OneToMany,
-  PrimaryGeneratedColumn,
+    Column,
+    Entity,
+    JoinTable,
+    OneToMany,
+    PrimaryGeneratedColumn,
 } from 'typeorm';
 
 @Entity('categorias')
 export class CategoriaEntity {
-  @PrimaryGeneratedColumn('uuid')
-  _id: string;
+    @PrimaryGeneratedColumn('uuid')
+    _id: string;
 
-  @Column()
-  categoria: string;
+    @Column()
+    categoria: string;
 
-  @Column()
-  descrição: string;
+    @Column()
+    descrição: string;
 
-  @Column()
-  eventos: string;
+    @Column()
+    eventos: string;
 
-  @JoinTable()
-  @OneToMany((type) => JogadorEntity, (jogador) => jogador.categoria, {
-    cascade: true,
-  })
-  jogadores: JogadorEntity[];
+    @OneToMany(
+        () => JogadorEntity,
+        (jogador: JogadorEntity) => jogador.categoria,
+    )
+    id_jogador: JogadorEntity;
 }
