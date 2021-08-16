@@ -25,5 +25,5 @@ export class CategoriaEntity {
         () => JogadorEntity,
         (jogador: JogadorEntity) => jogador.categoria,
     )
-    id_jogador: JogadorEntity;
+    id_jogador: JogadorEntity[];
 }

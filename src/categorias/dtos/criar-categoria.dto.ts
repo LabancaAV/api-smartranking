@@ -15,6 +15,5 @@ export class CriarCategoriaDto {
     @ArrayMinSize(1)
     eventos: Array<Evento>;
 
-    @IsArray()
-    jogadores: Array<Jogador>;
+
 }

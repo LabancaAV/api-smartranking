@@ -27,8 +27,6 @@ export class CategoriasService {
             );
         }
 
-        console.log(categoriaEncontrada);
-
-        return await this.categoriaRepository.save(categoriaEncontrada);
+        return await this.categoriaRepository.save(criarCategoriaDto);
     }
 }
