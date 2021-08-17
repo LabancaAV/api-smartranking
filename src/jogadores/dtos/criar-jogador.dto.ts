@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
 export class CriarJogadorDto {
   @IsNotEmpty()
@@ -7,4 +7,6 @@ export class CriarJogadorDto {
   readonly email: string;
   @IsNotEmpty()
   readonly nome: string;
+  @IsString()
+  readonly categoria: string;
 }

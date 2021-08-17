@@ -11,17 +11,25 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { JogadorEntity } from './entities/jogador.entity';
 import { AtualizarJogadorDto } from './dtos/atualizar-jogador.dto';
+import { Categoria } from 'src/categorias/interfaces/categorias.interface';
+import { CategoriaEntity } from 'src/categorias/entities/categorias.entity';
 
 @Injectable()
 export class JogadoresService {
   constructor(
     @InjectRepository(JogadorEntity)
     private readonly jogadorRepository: Repository<Jogador>,
+    @InjectRepository(JogadorEntity)
+    private readonly categoriaRepository: Repository<Categoria>,
   ) {}
 
   private readonly logger = new Logger(JogadoresService.name);
 
   async criarJogador(criarJogadorDto: CriarJogadorDto): Promise<Jogador> {
+    const categoria = criarJogadorDto.categoria;
+    this.preLoadCategoriaPorNome(categoria);
+    
+
     const { email } = criarJogadorDto;
     const jogadorEncontrado = await this.jogadorRepository.findOne({
       where: {
@@ -34,16 +42,14 @@ export class JogadoresService {
         `Jogador com e-mail ${email} já cadastrado`,
       );
     }
-
-    const { nome, telefoneCelular } = criarJogadorDto;
+   
     const jogador: Jogador = {
       _id: uuid(),
-      nome,
-      telefoneCelular,
-      email,
+      ...criarJogadorDto,
       ranking: 'A',
       posicaoRanking: 1,
       urlFotoJogador: 'www.google.com.br/foto123.jpg',
+      categoria
     };
 
     this.logger.log(`criaJogadorDto: ${JSON.stringify(jogador)}`);
@@ -65,7 +71,9 @@ export class JogadoresService {
   }
 
   async consultarTodosJogadores(): Promise<Jogador[]> {
-    return await this.jogadorRepository.find();
+    return await this.jogadorRepository.find({
+      relations: ['categoria']
+    });
   }
 
   async consultarJogadorPeloId(_id: string): Promise<Jogador> {
@@ -83,5 +91,13 @@ export class JogadoresService {
       throw new NotFoundException(`Jogador com e-mail ${_id} não encontrado`);
     }
     this.jogadorRepository.delete(jogadorEncontrado);
+  }
+
+  async preLoadCategoriaPorNome(categoria: string): Promise<Categoria>{
+    const categoriaExiste = await this.categoriaRepository.findOne({categoria});
+    if(categoriaExiste){
+      return categoriaExiste;
+    }
+    return this.categoriaRepository.create({categoria});
   }
 }

@@ -32,6 +32,7 @@ export class JogadorEntity {
 
     @ManyToOne(() => CategoriaEntity, {
         eager: true,
+        cascade: true
     })
     @JoinColumn({ name: 'categoria_id' })
     categoria: CategoriaEntity;
