@@ -2,7 +2,6 @@ import { JogadorEntity } from 'src/jogadores/entities/jogador.entity';
 import {
     Column,
     Entity,
-    JoinTable,
     OneToMany,
     PrimaryGeneratedColumn,
 } from 'typeorm';

@@ -15,6 +15,7 @@ export class CategoriasService {
     async criarCategoria(
         criarCategoriaDto: CriarCategoriaDto,
     ): Promise<Categoria> {
+        console.log(criarCategoriaDto);
         const { categoria } = criarCategoriaDto;
 
         const categoriaEncontrada = await this.categoriaRepository.findOne({
