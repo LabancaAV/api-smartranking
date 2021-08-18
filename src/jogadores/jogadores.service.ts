@@ -55,7 +55,9 @@ export class JogadoresService {
         const jogadorEncontrado = await this.jogadorRepository.findOne(_id);
 
         if (!jogadorEncontrado) {
-            throw new NotFoundException(`Jogador com ${_id} não encontrado`);
+            throw new NotFoundException(
+                `Jogador com identificador ${_id} não encontrado`,
+            );
         }
 
         this.jogadorRepository.update(_id, atualizarJogadorDto);
@@ -71,7 +73,7 @@ export class JogadoresService {
         const jogadorEncontrado = await this.jogadorRepository.findOne(_id);
         if (!jogadorEncontrado) {
             throw new NotFoundException(
-                `Jogador com e-mail ${_id} não encontrado`,
+                `Jogador com identificador ${_id} não encontrado`,
             );
         } else {
             return jogadorEncontrado;
@@ -82,7 +84,7 @@ export class JogadoresService {
         const jogadorEncontrado = await this.jogadorRepository.findOne(_id);
         if (!jogadorEncontrado) {
             throw new NotFoundException(
-                `Jogador com e-mail ${_id} não encontrado`,
+                `Jogador com identificador ${_id} não encontrado`,
             );
         }
         this.jogadorRepository.delete(jogadorEncontrado);
