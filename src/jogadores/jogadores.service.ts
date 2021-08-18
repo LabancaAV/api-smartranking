@@ -19,16 +19,11 @@ export class JogadoresService {
   constructor(
     @InjectRepository(JogadorEntity)
     private readonly jogadorRepository: Repository<Jogador>,
-    @InjectRepository(JogadorEntity)
-    private readonly categoriaRepository: Repository<Categoria>,
   ) {}
 
   private readonly logger = new Logger(JogadoresService.name);
 
   async criarJogador(criarJogadorDto: CriarJogadorDto): Promise<Jogador> {
-    const categoria = criarJogadorDto.categoria;
-    this.preLoadCategoriaPorNome(categoria);
-    
 
     const { email } = criarJogadorDto;
     const jogadorEncontrado = await this.jogadorRepository.findOne({
@@ -36,7 +31,7 @@ export class JogadoresService {
         email: email,
       },
     });
-    console.log(jogadorEncontrado);
+
     if (jogadorEncontrado) {
       throw new BadRequestException(
         `Jogador com e-mail ${email} já cadastrado`,
@@ -48,8 +43,7 @@ export class JogadoresService {
       ...criarJogadorDto,
       ranking: 'A',
       posicaoRanking: 1,
-      urlFotoJogador: 'www.google.com.br/foto123.jpg',
-      categoria
+      urlFotoJogador: 'www.google.com.br/foto123.jpg'
     };
 
     this.logger.log(`criaJogadorDto: ${JSON.stringify(jogador)}`);
@@ -93,11 +87,5 @@ export class JogadoresService {
     this.jogadorRepository.delete(jogadorEncontrado);
   }
 
-  async preLoadCategoriaPorNome(categoria: string): Promise<Categoria>{
-    const categoriaExiste = await this.categoriaRepository.findOne({categoria});
-    if(categoriaExiste){
-      return categoriaExiste;
-    }
-    return this.categoriaRepository.create({categoria});
-  }
+
 }
