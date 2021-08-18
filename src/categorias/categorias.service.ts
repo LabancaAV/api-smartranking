@@ -1,6 +1,7 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException, Param } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { AtualizarCategoriaDto } from './dtos/atualizar-categoria.dto';
 import { CriarCategoriaDto } from './dtos/criar-categoria.dto';
 import { CategoriaEntity } from './entities/categorias.entity';
 import { Categoria } from './interfaces/categorias.interface';
@@ -29,5 +30,17 @@ export class CategoriasService {
         }
 
         return await this.categoriaRepository.save(criarCategoriaDto);
+    }
+
+    async atualizarCategoria(
+        _id: string, atualizarCategoriaDto: AtualizarCategoriaDto
+    ): Promise<void>{
+        const categoriaEncontrada = await this.categoriaRepository.findOne(_id);
+
+        if(!categoriaEncontrada){
+            throw new NotFoundException(`Categoria com identificador ${_id} não encontrada`);
+        }
+
+        this.categoriaRepository.update(_id, atualizarCategoriaDto);
     }
 }
