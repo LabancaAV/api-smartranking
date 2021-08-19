@@ -62,4 +62,16 @@ export class CategoriasService {
         relations: ['jogador'],
         });
     }
+
+    async deletarCategoriaPeloId(_id: string): Promise<Categoria>{
+        const categoriaEncontrada = await this.categoriaRepository.findOne(_id);
+
+        if(!categoriaEncontrada){
+            throw new NotFoundException(`Categoria com identificador ${_id} não encontrada`);
+        } else {
+            await this.categoriaRepository.delete(_id);
+        }
+        return categoriaEncontrada;
+
+    }
 }

@@ -7,6 +7,7 @@ import {
     UsePipes,
     ValidationPipe,
     Get,
+    Delete,
 } from '@nestjs/common';
 import { JogadoresValidacaoParametrosPipe } from 'src/jogadores/pipes/jogadores-validacao-parametros-pipes';
 import { CategoriasService } from './categorias.service';
@@ -45,6 +46,13 @@ export class CategoriasController {
     @Get()
     async consultarTodasCategorias(): Promise<Categoria[]> {
         return await this.categoriaService.consultarTodasCategorias();
+    }
+
+    @Delete('/:_id')
+    async deletarCategoriaPeloId(
+        @Param('_id', JogadoresValidacaoParametrosPipe) _id: string
+    ): Promise<Categoria>{
+        return this.categoriaService.deletarCategoriaPeloId(_id);
     }
 
 }

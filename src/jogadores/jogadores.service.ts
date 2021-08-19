@@ -87,6 +87,6 @@ export class JogadoresService {
                 `Jogador com identificador ${_id} não encontrado`,
             );
         }
-        this.jogadorRepository.delete(jogadorEncontrado);
+        await this.jogadorRepository.delete(jogadorEncontrado);
     }
 }
