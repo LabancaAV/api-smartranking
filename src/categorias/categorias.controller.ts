@@ -6,6 +6,7 @@ import {
     Post,
     UsePipes,
     ValidationPipe,
+    Get,
 } from '@nestjs/common';
 import { JogadoresValidacaoParametrosPipe } from 'src/jogadores/pipes/jogadores-validacao-parametros-pipes';
 import { CategoriasService } from './categorias.service';
@@ -32,6 +33,13 @@ export class CategoriasController {
         @Param('_id', JogadoresValidacaoParametrosPipe) _id: string
     ): Promise<void>{
         await this.categoriaService.atualizarCategoria(_id, atualizarCategoriaDto);
+    }
+
+    @Get(':_id')
+    async consultarCategoriaPeloId(
+        @Param() _id: string
+    ): Promise<Categoria>{
+        return await this.categoriaService.consultarCategoriaPeloId(_id);
     }
 
 }

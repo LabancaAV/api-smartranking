@@ -43,4 +43,17 @@ export class CategoriasService {
 
         this.categoriaRepository.update(_id, atualizarCategoriaDto);
     }
+
+    async consultarCategoriaPeloId(_id: string): Promise<Categoria>{
+        console.log(_id)
+        const categoriaEncontrada = await this.categoriaRepository.findOne(_id);
+
+        if(!categoriaEncontrada){
+            throw new NotFoundException(`Categoria com identificador ${_id} não encontrada`);
+        } else {
+            
+            return categoriaEncontrada;  
+        
+        }
+    }
 }
