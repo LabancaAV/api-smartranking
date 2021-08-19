@@ -3,6 +3,7 @@ import { JogadoresModule } from './jogadores/jogadores.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { CategoriasModule } from './categorias/categorias.module';
+import { EventosModule } from './eventos/eventos.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { CategoriasModule } from './categorias/categorias.module';
       synchronize: true,
     }),
     CategoriasModule,
+    EventosModule,
   ],
   controllers: [],
   providers: [],
