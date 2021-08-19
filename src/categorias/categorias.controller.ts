@@ -42,4 +42,9 @@ export class CategoriasController {
         return await this.categoriaService.consultarCategoriaPeloId(_id);
     }
 
+    @Get()
+    async consultarTodasCategorias(): Promise<Categoria[]> {
+        return await this.categoriaService.consultarTodasCategorias();
+    }
+
 }
