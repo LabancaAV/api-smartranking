@@ -1,7 +1,9 @@
+import { EventoEntity } from 'src/eventos/entities/eventos.entity';
 import { JogadorEntity } from 'src/jogadores/entities/jogador.entity';
 import {
     Column,
     Entity,
+    JoinColumn,
     OneToMany,
     PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -22,4 +24,11 @@ export class CategoriaEntity {
         (jogador: JogadorEntity) => jogador.categoria,
     )
     jogador: JogadorEntity[];
+
+    @OneToMany(
+        () => EventoEntity,
+        (evento: EventoEntity) => evento.categoria,
+    )
+    @JoinColumn({ name: 'evento_id' })
+    evento: EventoEntity[];
 }

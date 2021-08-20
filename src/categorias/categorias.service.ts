@@ -59,7 +59,7 @@ export class CategoriasService {
 
     async consultarTodasCategorias(): Promise<Categoria[]>{
         return await this.categoriaRepository.find({
-        relations: ['jogador'],
+        relations: ['jogador', 'evento'],
         });
     }
 

@@ -1,4 +1,4 @@
-import { IsString } from "class-validator";
+import { IsNumber, IsString } from "class-validator";
 
 export class CriarEventoDto{
     @IsString()
@@ -7,7 +7,10 @@ export class CriarEventoDto{
     @IsString()
     operação: string;
 
+    @IsNumber()
+    valor: number;
+
     @IsString()
-    valor: string;
+    categoria: string;
 
 }
