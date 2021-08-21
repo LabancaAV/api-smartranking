@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CriarEventoDto } from './dtos/criar-evento.dto';
@@ -14,6 +14,13 @@ export class EventosService {
 
 
     async criarEvento(criarEventoDto: CriarEventoDto): Promise<Evento>{
+        const { nome } = criarEventoDto;
+        const eventoEncontrado = await this.eventoRepository.findOne({nome});
+        if(eventoEncontrado){
+            throw new BadRequestException(
+                `Evento ${eventoEncontrado} já cadastrado`
+            )
+        }
         return this.eventoRepository.save(criarEventoDto);
     }
 

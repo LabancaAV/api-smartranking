@@ -17,7 +17,7 @@ export class CategoriaEntity {
     categoria: string;
 
     @Column()
-    descrição: string;
+    descrição: string; 
 
     @OneToMany(
         () => JogadorEntity,
