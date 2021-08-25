@@ -9,6 +9,9 @@ services:
             - '5432:5432'
         environment:
             POSTGRES_PASSWORD: pass123
+            POSTGRES_DB: smartranking
+            POSTGRES_USER: labrancax
+            PGDATA: /var/lib/
         tty: true
 
     pgadmin:
