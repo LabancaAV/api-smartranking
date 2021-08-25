@@ -10,18 +10,20 @@ export class EventosService {
     constructor(
         @InjectRepository(EventoEntity)
         private readonly eventoRepository: Repository<Evento>,
-    ){}
+    ) {}
 
-
-    async criarEvento(criarEventoDto: CriarEventoDto): Promise<Evento>{
+    async criarEvento(criarEventoDto: CriarEventoDto): Promise<Evento> {
         const { nome } = criarEventoDto;
-        const eventoEncontrado = await this.eventoRepository.findOne({nome});
-        if(eventoEncontrado){
+        const eventoEncontrado = await this.eventoRepository.findOne({ nome });
+        if (eventoEncontrado) {
             throw new BadRequestException(
-                `Evento ${eventoEncontrado} já cadastrado`
-            )
+                `Evento ${eventoEncontrado} já cadastrado`,
+            );
         }
         return this.eventoRepository.save(criarEventoDto);
     }
 
+    async buscarTodosEventos(): Promise<Evento[]> {
+        return await this.eventoRepository.find();
+    }
 }
