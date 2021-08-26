@@ -3,15 +3,12 @@ version: '3'
 services:
     db:
         container_name: smartranking
-        image: postgres
+        build:
+            context: ./
+            dockerfile: ./Dockerfile
         restart: always
         ports:
             - '5432:5432'
-        environment:
-            POSTGRES_PASSWORD: pass123
-            POSTGRES_DB: smartranking
-            POSTGRES_USER: labrancax
-            PGDATA: /var/lib/
         tty: true
 
     pgadmin:
