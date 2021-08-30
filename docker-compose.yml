@@ -7,6 +7,8 @@ services:
             context: ./
             dockerfile: ./Dockerfile
         restart: always
+        volumes:
+            - ./database:/home/pgdata/data
         ports:
             - '5432:5432'
         tty: true

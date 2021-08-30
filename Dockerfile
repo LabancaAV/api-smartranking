@@ -8,4 +8,3 @@ ENV POSTGRES_PASSWORD=pass123
 ENV POSTGRES_DB=smartranking
 ENV PGDATA=/home/pgdata/data
 
-COPY ./database /home/pgdata/data/
