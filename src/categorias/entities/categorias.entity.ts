@@ -29,6 +29,6 @@ export class CategoriaEntity {
         () => EventoEntity,
         (evento: EventoEntity) => evento.categoria,
     )
-    @JoinColumn({ name: 'evento_id' })
     evento: EventoEntity[];
+    
 }

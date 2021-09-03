@@ -5,6 +5,5 @@ export interface Categoria {
     readonly categoria: string;
     descrição: string;
     jogadores: Array<Jogador>;
-    evento: string[];
 }
 
